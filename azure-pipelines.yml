@@ -25,7 +25,7 @@ variables:
 # Counter for each build run.
 - name: Version.Revision
   value: $[counter(variables['Version.MajorMinor'], 0)]
-- name: BUILD_BUILDNUMBER
+- name: NUGET_VERSION
   value: $(Version.MajorMinor).$(Version.Revision).$(Build.BuildID)
 - name: Projects
   value: '**/QLNet.sln'
@@ -34,7 +34,7 @@ steps:
 - script: echo $(Version.MajorMinor).$(Version.Revision).$(Build.BuildID)
 - powershell:
   env:
-    BUILD_BUILDNUMBER: $(Version.MajorMinor).$(Version.Revision).$(Build.BuildID)
+    NUGET_VERSION: $(Version.MajorMinor).$(Version.Revision).$(Build.BuildID)
 
 - task: DotNetCoreCLI@2
   displayName: Restore
@@ -70,7 +70,7 @@ steps:
     includesymbols: true 
     nobuild: true
     versioningScheme: 'byEnvVar'
-    versionEnvVar: 'BUILD_BUILDNUMBER'
+    versionEnvVar: 'NUGET_VERSION'
 
 - task: NuGetCommand@2
   displayName: 'Publish to Nuget.org from develop branch only'
