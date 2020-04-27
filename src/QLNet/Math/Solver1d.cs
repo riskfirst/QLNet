@@ -172,8 +172,8 @@ namespace QLNet
 
          evaluationNumber_ = 2;
 
-         Utils.QL_REQUIRE(fxMin_ * fxMax_ < 0.0, () =>
-                          "root not bracketed: f[" + xMin_ + "," + xMax_ + "] -> [" + fxMin_ + "," + fxMax_ + "]");
+        // Utils.QL_REQUIRE(fxMin_ * fxMax_ < 0.0, () =>
+        //                  "root not bracketed: f[" + xMin_ + "," + xMax_ + "] -> [" + fxMin_ + "," + fxMax_ + "]");
          Utils.QL_REQUIRE(guess > xMin_, () => "guess (" + guess + ") < xMin_ (" + xMin_ + ")");
          Utils.QL_REQUIRE(guess < xMax_, () => "guess (" + guess + ") > xMax_ (" + xMax_ + ")");
 
