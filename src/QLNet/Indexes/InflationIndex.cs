@@ -321,7 +321,7 @@ namespace QLNet
          double t = zeroInflation_.link.dayCounter().yearFraction(baseDate, effectiveFixingDate);
          bool forceLinearInterpolation = false;
          double zero = zeroInflation_.link.zeroRate(fixingDate, new Period(0, TimeUnit.Days), forceLinearInterpolation);
-         zero = Math.Max(-0.05, zero);
+         zero = Math.Max(-0.5, zero);
          // Annual compounding is the convention for zero inflation rates (or quotes)
          return baseFixing * Math.Pow(1.0 + zero, t);
       }
