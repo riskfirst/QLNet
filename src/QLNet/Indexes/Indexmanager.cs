@@ -20,8 +20,9 @@
 */
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using history_map = System.Collections.Generic.Dictionary < string, QLNet.ObservableValue < QLNet.TimeSeries < double? >>>;
+using history_map = System.Collections.Concurrent.ConcurrentDictionary< string, QLNet.ObservableValue < QLNet.TimeSeries < double? >>>;
 
 namespace QLNet
 {
@@ -129,7 +130,7 @@ namespace QLNet
       /// <param name="name"></param>
       public void clearHistory(string name)
       {
-         data_.Remove(name.ToUpper());
+         data_.TryRemove(name.ToUpper(),out var output);
       }
 
       /// <summary>
@@ -147,10 +148,12 @@ namespace QLNet
       private void checkExists(string name)
       {
          if (!data_.ContainsKey(name.ToUpper()))
-            data_.Add(name.ToUpper(), new ObservableValue < TimeSeries < double? >> ());
+            data_.TryAdd(name.ToUpper(), new ObservableValue<TimeSeries<double?>>());
+            
+               
       }
 
-      private static history_map data_ = new Dictionary < string, ObservableValue < TimeSeries < double? >>> ();
+      private static history_map data_ = new ConcurrentDictionary < string, ObservableValue < TimeSeries < double? >>> ();
 
    }
 
